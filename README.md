@@ -5,7 +5,7 @@ Does your manager tell you to fill out the feedback surveys during your 30's? Ar
 Make sure an *input.txt* file exists in the same folder as the python script. The 20-digit survey code numbers must be seperated on different lines and can be of any formatting, ie seperated by spaces or dashes or whatever.
 
 The variable *path_to_chromedriver_exe* must be set to wherever *chromedriver.exe* is stored on your machine. The default path is:
-'''
+'''bash
 C:\Windows\chromedriver.exe
 '''
 
