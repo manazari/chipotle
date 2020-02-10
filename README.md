@@ -12,3 +12,4 @@ C:\Windows\chromedriver.exe
 On the survey, the text box for giving more feedback is optional and thus skipped. An option is to provide a `feedback.txt` file which the program will randomly select a line from and paste that into the feedback text box. Without this file, the text box is left blank
 
 **_Enjoy!_**
+![Burrito pic](https://www.pymnts.com/wp-content/uploads/2019/08/mobile-order-ahead-Chipotle-rewards-AI.jpg)
