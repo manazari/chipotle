@@ -28,7 +28,7 @@ try:
     with open(config.get('feedback_path')) as f:
         feedback = [line.rstrip() for line in f.readlines()]
 except IOError:
-    print('Cannot find "{0}", will not input feedback'.format(config.get('feedback_path')))
+    print('Cannot find feedback file at "{0}", will not input feedback'.format(config.get('feedback_path')))
 
 driver = webdriver.Chrome(executable_path = config.get("chromedriver_path"))
 
@@ -147,15 +147,19 @@ def complete_survey(code):
     click_next()
 
 surveys_completed = 0
-with open(config.get("input_path")) as f:
-    for line in f:
-        code = SurveyCode(line)
-        print('> Completing survey with code "{0}"...'.format(code))
-        complete_survey(code)
-        surveys_completed += 1
-        delay = float(config.get("delay")) * random.uniform(0.8, 1.2)
-        print('> Survey completed! ({0} total)\n'.format(surveys_completed))
-        print('> waiting {0} seconds until next survey'.format(delay))
-        time.sleep(delay)
+try:
+    with open(config.get("input_path")) as f:
+        for line in f:
+            code = SurveyCode(line)
+            print('> Completing survey with code "{0}"...'.format(code))
+            complete_survey(code)
+            surveys_completed += 1
+            delay = float(config.get("delay")) * random.uniform(0.8, 1.2)
+            print('> Survey completed! ({0} total)\n'.format(surveys_completed))
+            print('> waiting {0} seconds until next survey'.format(delay))
+            time.sleep(delay)
+except IOError:
+    print('Cannot find input file at "{0}"'.format(config.get('input_path')))
+
 
 print('END')
