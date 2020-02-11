@@ -4,8 +4,7 @@
 
 __author__ = "Phuong Pham and Matthew Nazari"
 __copyright__ = "Copyright 2020, The Coleman Minor Union"
-__credits__ = ["Phuong Pham", "Matthew Nazari"]
-__version__ = "1.1.0"
+__version__ = "1.5.69"
 __email__ = ["phuong.pham01@sjsu.edu", "matthewnazari@harvard.edu"]
 
 from selenium import webdriver
