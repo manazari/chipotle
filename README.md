@@ -10,7 +10,7 @@ Does your manager tell you to fill out the feedback surveys during your 30's? Ar
 
 4. **Download that thang:** click the *Clone and download* button on and download the `.zip` file. Drag the contents of this into a new folder
 
-5. **Configure:** open `config.txt` and change *`chromedriver_path`* to the file path of `chromedriver.exe`. By default, the bot is configured to assume you dragged `chromedriver.exe` into the folder `C:\Windows\`. In `config.txt` change `delay` to a decimal number representing the delay in seconds between each attempt (delay will be longer or shorter by a random factor between `0.8` and `1.2`)
+5. **Configure:** open `config.txt` and change *`chromedriver_path`* to the file path of `chromedriver.exe`. By default, the bot is configured to assume you dragged `chromedriver.exe` into the folder `C:\Windows\`. In *`config.txt`* change `delay` to a decimal number representing the delay in seconds between each attempt (delay will be longer or shorter by a random factor between `0.8` and `1.2`)
 
 6. **Input survey codes:** to feed new codes into the bot, enter each code on a separate line in `input.txt`. As long as there are 20 digits per line, the bot can understand the survey code so any format could work, i.e. `123-123-123-123-123-12` or `123 123 123 123 123 12`.
 

@@ -1,28 +1,5 @@
 """
-                INSTRUCTIONS:
-Setup:
-`config.txt`
-    file for configurations for the script to run. As of now
-    there are 2 configurations
-        chromedriver_path: C:\Windows\chromedriver.exe
-            - path to find chromedriver.exe file
-        delay: 3.0
-            - seconds to wait before each survey. The bot
-            will wait a random amount within 40% of this number
 
-`input.txt`
-    default file for input. Survey code numbers must be divided
-    on seperate lines. As long as there is 20 digits per line
-    in this file, the program will read it, so the following are
-    all valid examples to enter the codes
-        123 123 123 123 123 123 12
-        123-123-123 123 123 x 123 x 12
-
-`feedback.txt`
-    optional file for possible feedback responses. If not
-    existant, the text box on the survey will be left blank.
-    Responses are considered seperate if they are on their own
-    line and they will be randomly chosen
 """
 
 __author__ = "Phuong Pham and Matthew Nazari"
@@ -38,6 +15,7 @@ import time, re, random
 config = {
     'chromedriver_path' : 'C:\Windows\chromedriver.exe',
     'input_path'        : 'input.txt',
+    'feedback_path'     : 'feedback.txt',
     'delay'             : '3.0',
 }
 with open('config.txt') as f:
@@ -49,7 +27,7 @@ with open('config.txt') as f:
 
 feedback = []
 try:
-    with open('feedback.txt') as f:
+    with open(config.get('feedback_path')) as f:
         feedback = [line.rstrip() for line in f.readlines()]
 except IOError:
     print('Cannot find "feedback.txt", will not input feedback')
