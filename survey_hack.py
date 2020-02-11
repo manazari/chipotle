@@ -1,21 +1,28 @@
 """
                 INSTRUCTIONS:
-INPUT
-there should be a 'input.txt' file in the same
-folder as this python file
+Setup:
+`config.txt`
+    file for configurations for the script to run. As of now
+    there are 2 configurations
+        chromedriver_path: C:\Windows\chromedriver.exe
+            - path to find chromedriver.exe file
+        delay: 3.0
+            - seconds to wait before each survey. The bot
+            will wait a random amount within 40% of this number
 
-AS LONG AS there are 20 digits PER LINE in the input file,
-the survey codes  can be seperated and read. The digits can be
-seperated by '-' or ' ' or whatever. between the '###' is
-an example of proper formatting for 'input.txt'
-    ###
-    031 002 100 082  010   561 94
-    021- 002-100 -082- 010-531-14
-    ###
+`input.txt`
+    default file for input. Survey code numbers must be divided
+    on seperate lines. As long as there is 20 digits per line
+    in this file, the program will read it, so the following are
+    all valid examples to enter the codes
+        123 123 123 123 123 123 12
+        123-123-123 123 123 x 123 x 12
 
-CHROME DRIVER
-you should change path_to_chromedriver_exe to where ever
-it is on your pc
+`feedback.txt`
+    optional file for possible feedback responses. If not
+    existant, the text box on the survey will be left blank.
+    Responses are considered seperate if they are on their own
+    line and they will be randomly chosen
 """
 
 __author__ = "Phuong Pham and Matthew Nazari"
@@ -27,8 +34,19 @@ __email__ = ["phuong.pham01@sjsu.edu", "matthewnazari@harvard.edu"]
 from selenium import webdriver
 import time, re, random
 
-path_to_chromedriver_exe = 'C:\Windows\chromedriver.exe'
-input_path = 'input.txt'
+# default config
+config = {
+    'chromedriver_path' : 'C:\Windows\chromedriver.exe',
+    'input_path'        : 'input.txt',
+    'delay'             : '3.0',
+}
+with open('config.txt') as f:
+    for line in f:
+        line = line.strip()
+        if ':' not in line or line.startswith('#'): continue
+        data = line.split(':', 1)
+        config[data[0].strip()] = data[1].strip()
+
 feedback = []
 try:
     with open('feedback.txt') as f:
@@ -36,8 +54,15 @@ try:
 except IOError:
     print('Cannot find "feedback.txt", will not input feedback')
 
-driver = webdriver.Chrome(executable_path = path_to_chromedriver_exe)
+driver = webdriver.Chrome(executable_path = config.get("chromedriver_path"))
 
+def parse_config_file():
+    with open('config.txt') as f:
+        for line in f:
+            if ':' not in line: continue
+            data = line.split(':', 1)
+            config[data[0].strip()] = data[1].strip()
+    
 class SurveyCode:
     """docstring for SurveyCode"""
     def __init__(self, code):
@@ -146,12 +171,15 @@ def complete_survey(code):
     click_next()
 
 surveys_completed = 0
-with open(input_path) as f:
+with open(config.get("input_path")) as f:
     for line in f:
         code = SurveyCode(line)
         print('> Completing survey with code "{0}"...'.format(code))
         complete_survey(code)
         surveys_completed += 1
+        delay = float(config.get("delay")) * random.uniform(0.8, 1.2)
         print('> Survey completed! ({0} total)\n'.format(surveys_completed))
+        print('> waiting {0} seconds until next survey'.format(delay))
+        time.sleep(delay)
 
 print('END')

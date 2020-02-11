@@ -1,3 +1,5 @@
+- TO DO: update set up instructions
+
 # Chipotle Survey Hack
 Does your manager tell you to fill out the feedback surveys during your 30's? Are you tired of wasting away valuable minutes clicking dots and entering numbers? Fear not, for this script when fed any number of codes will automatically fill out Chipotle feedback surveys for you.
 
