@@ -20,8 +20,7 @@ config = {
 }
 with open('config.txt') as f:
     for line in f:
-        line = line.strip()
-        if ':' not in line or line.startswith('#'): continue
+        if ':' not in line or line.lstrip().startswith('#'): continue
         data = line.split(':', 1)
         config[data[0].strip()] = data[1].strip()
 
@@ -30,7 +29,7 @@ try:
     with open(config.get('feedback_path')) as f:
         feedback = [line.rstrip() for line in f.readlines()]
 except IOError:
-    print('Cannot find "feedback.txt", will not input feedback')
+    print('Cannot find "{0}", will not input feedback'.format(config.get('feedback_path')))
 
 driver = webdriver.Chrome(executable_path = config.get("chromedriver_path"))
 
